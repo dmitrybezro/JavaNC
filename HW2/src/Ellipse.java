@@ -21,8 +21,7 @@ public class Ellipse implements Shape{
     }
 
     @Override
-    public String getType() {
+    public String toString(){
         return "My name is Ellipse";
     }
-
 }

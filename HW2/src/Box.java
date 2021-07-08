@@ -15,8 +15,7 @@ public class Box implements Shape{
     }
 
     @Override
-    public String getType() {
+    public String toString(){
         return "My name is Box";
     }
-
 }

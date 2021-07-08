@@ -14,8 +14,7 @@ public class Circle implements Shape{
     }
 
     @Override
-    public String getType() {
+    public String toString(){
         return "My name is Circle";
     }
-
 }
