@@ -1,8 +1,8 @@
 package peripherals;
 
-import animals.Giraffe;
-import animals.Squirrel;
 import cages.CageImpl;
+import exceptions.NoFreeCageException;
+import exceptions.NoRequestedAnimalException;
 import model.Animal;
 import model.Species;
 
@@ -30,7 +30,7 @@ public class ZooImpl implements Zoo {
 
 
     @Override
-    public void checkInAnimal(Animal animal) {
+    public void checkInAnimal(Animal animal) throws NoFreeCageException{
         //  Проверить все клетки
         Species speciesAnimal = animal.getSpecies();
         for(CageImpl cage : cages){
@@ -52,7 +52,8 @@ public class ZooImpl implements Zoo {
             } else {
                 if(cage.equals(cages.get(numberAnimal - 1))) {
                     //  Исключение некуда принять
-                    System.out.println("Not accept");
+                    throw new NoFreeCageException("The animal is not accepted. There are no free cages");
+                   // System.out.println("Not accept");
                 }
             }
         }
@@ -60,7 +61,7 @@ public class ZooImpl implements Zoo {
     }
 
     @Override
-    public void checkOutAnimal(Animal animal) {
+    public void checkOutAnimal(Animal animal) throws NoRequestedAnimalException{
         //  Если в каком-то есть уже такое же имя
 
         for(int i = 0; i < animals.size(); i++){
@@ -73,26 +74,13 @@ public class ZooImpl implements Zoo {
                 System.out.println("Evicted");
                 break;
             } else {
-                if(i == numberAnimal - 1){
+                if(i == (numberAnimal - 1)){
+                    throw new NoRequestedAnimalException("The animal has not been removed. There is no suitable one.");
                     //  Исключение о ненахождении животного
-                    System.out.println("Not evict");
                 }
             }
         }
-       /* int indexCage = animals.indexOf(animal);
 
-        if(indexCage >= 0) {
-            cages.get(indexCage).setVacant(true);  //  Установили вакантность
-            animals.set(indexCage, null);
-            //  Запись в журнал при выселении. Даты из клетки
-            journal.add(new InhibitionLog(cages.get(indexCage).getInDate(),
-                        new Date(), animal.getSpecies(), animal.getName()));
-            System.out.println("Evicted");
-           // break;
-        } else {
-                //  Исключение о ненахождении животного
-                System.out.println("Not evict");
-        }*/
     }
 
     @Override
@@ -100,25 +88,4 @@ public class ZooImpl implements Zoo {
         return journal;
     }
 
-    public static void main(String[] args) {
-        ZooImpl zoo = new ZooImpl();
-        Giraffe giraffe = new Giraffe("A");
-        Giraffe giraffe2 = new Giraffe("B");
-        Squirrel squirrel = new Squirrel("S");
-
-        zoo.checkInAnimal(giraffe);
-        zoo.checkInAnimal(giraffe2);
-      //  zoo.checkInAnimal(giraffe2);
-       /* zoo.checkOutAnimal(giraffe);
-        zoo.checkInAnimal(squirrel);
-        zoo.checkOutAnimal(squirrel);*/
-
-       // List<InhibitionLog> logs = zoo.getHistory();
-
-/*        for(InhibitionLog log : logs) {
-            System.out.println(log.toString());
-        }*/
-
-       // System.out.println(zoo.getHistory());
-    }
 }

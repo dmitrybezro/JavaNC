@@ -3,7 +3,7 @@ package animals;
 import model.Animal;
 import model.Nutrition;
 import model.Species;
-//  Дописать исключения в конструктор
+
 public class Penguin implements Animal {
     private final String name;
     private double height;
@@ -26,6 +26,7 @@ public class Penguin implements Animal {
     public double getHeight() {
         return this.height;
     }
+
     public void setHeight(double height) {
         this.height = height;
     }

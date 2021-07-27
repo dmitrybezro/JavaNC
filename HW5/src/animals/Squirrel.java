@@ -3,7 +3,7 @@ package animals;
 import model.Animal;
 import model.Nutrition;
 import model.Species;
-//  Дописать исключения в конструктор
+
 public class Squirrel implements Animal {
     private final String name;
     private double height;

@@ -5,14 +5,10 @@ import model.Condition;
 
 import java.util.Date;
 
-//  Дописать исключения в конструктор
-//  Добавить даты заселения и выселения
-
 public class CageImpl implements Cage {
     private final double width;
     private final double height;
     private boolean vacant;
-    private int number;
     private final ConditionImpl condition;
     private Date inDate;
 
@@ -51,17 +47,4 @@ public class CageImpl implements Cage {
         return this.vacant;
     }
 
-    public static void main(String[] args) {
-        CageImpl cage1 = new CageImpl( 12,12);
-//        System.out.println(cage1.getCondition().isAvailableFor());
-//        CageImpl cage2 = new CageImpl(123,123);
-//        System.out.println(cage2.getNumber());
-        System.out.println(cage1.isVacantCage());
-        cage1.setVacant(false);
-
-        System.out.println(cage1.isVacantCage());
-
-
-
-    }
 }

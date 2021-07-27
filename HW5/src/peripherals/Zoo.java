@@ -1,5 +1,7 @@
 package peripherals;
 
+import exceptions.NoFreeCageException;
+import exceptions.NoRequestedAnimalException;
 import model.Animal;
 import peripherals.InhibitionLog;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * @getHistory - method show log of check in and check out
  */
 public interface Zoo {
-    void checkInAnimal(Animal animal);
-    void checkOutAnimal(Animal animal);
+    void checkInAnimal(Animal animal) throws NoFreeCageException;
+    void checkOutAnimal(Animal animal) throws NoRequestedAnimalException;
     List<InhibitionLog> getHistory();
 }

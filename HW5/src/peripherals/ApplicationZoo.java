@@ -1,72 +1,113 @@
 package peripherals;
 
+import exceptions.NoFreeCageException;
+import exceptions.NoRequestedAnimalException;
 import model.Animal;
 import model.Species;
 import animals.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ApplicationZoo {
     public void start(){
         Scanner in = new Scanner(System.in);
         ZooImpl zoo = new ZooImpl();
+        helpOutput();
+
+        //  Бесконечный ввод
         while(true) {
-            System.out.println("Enter the command");
-            String stringInput = in.nextLine();
-            ParserCommand parser = new ParserCommand();
 
-            Data data = parser.pars(stringInput);
-
-
+            Data data;
             Animal animal = null;
-            boolean correctString = true;
+            boolean correctString;
+
+            //  Повтор для корректности ввода
             do {
+                System.out.println("Enter the command");
+                correctString = true;
+                String stringInput = in.nextLine();
+                ParserCommand parser = new ParserCommand();
+
+                data = parser.pars(stringInput);
+
+                //  Отдельная проверка на команду log
+                if(data.size == 1 && data.getCommand().toLowerCase().equals( "log")){
+                    List<InhibitionLog> logs = zoo.getHistory();
+
+                    for (InhibitionLog log : logs) {
+                        System.out.println("Animal = " + log.getAnimalSpecies()
+                                            + " name = " + log.getAnimalName()
+                                            + " сheck-in date = " + log.getCheckInDate()
+                                            + " сheck-out date = " + log.getCheckOutDate());
+                    }
+                    if(logs.size() == 0) {
+                        System.out.println("The log is empty");
+                    }
+                    correctString = false;
+
+                }
+
+                //  Проверка на команду help
+                if(data.size == 1 && data.getCommand().toLowerCase().equals( "help")) {
+                    helpOutput();
+                }
+
                 //  Проверка корректности ввода команды
-                if (!isCorrectCommand(data.command))
+                if (!isCorrectCommand(data.getCommand()))
                     correctString = false;
 
                 //  Корректность ввода вида животного
-                {
+                if(correctString){
                     boolean correctSpecie = false;
-                    if (data.specieAnimal.equalsIgnoreCase(Species.GIRAFFE.name())) {
-                        animal = new Giraffe(data.nameAnimal);
+                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.GIRAFFE.name())) {
+                        animal = new Giraffe(data.getNameAnimal());
                         correctSpecie = true;
                     }
-                    if (data.specieAnimal.equalsIgnoreCase(Species.LEON.name())) {
-                        animal = new Leon(data.nameAnimal);
+                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.LEON.name())) {
+                        animal = new Leon(data.getNameAnimal());
                         correctSpecie = true;
                     }
-                    if (data.specieAnimal.equalsIgnoreCase(Species.PENGUIN.name())) {
-                        animal = new Penguin(data.nameAnimal);
+                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.PENGUIN.name())) {
+                        animal = new Penguin(data.getNameAnimal());
                         correctSpecie = true;
                     }
-                    if (data.specieAnimal.equalsIgnoreCase(Species.SQUIRREL.name())) {
-                        animal = new Squirrel(data.nameAnimal);
+                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.SQUIRREL.name())) {
+                        animal = new Squirrel(data.getNameAnimal());
                         correctSpecie = true;
                     }
                     if (!correctSpecie) {
                         correctString = false;
                     }
                 }
+                System.out.println();
             } while (!correctString);
 
-            if (data.command.toLowerCase().equals("check-in")) {
-                zoo.checkInAnimal(animal);
-            }
-            if (data.command.toLowerCase().equals("check-out")) {
-                zoo.checkOutAnimal(animal);
-            }
-            if (data.command.toLowerCase().equals("log")) {
-                List<InhibitionLog> logs = zoo.getHistory();
-
-                for (InhibitionLog log : logs) {
-                    System.out.println(log.toString());
+            //  Если все ок, то вызываются функции зоопарка
+            if (data.getCommand().toLowerCase().equals("check-in")) {
+                try{
+                    zoo.checkInAnimal(animal);
                 }
+                catch (NoFreeCageException exception){
+                    System.out.println(exception.getMessage());
+                }
+
             }
+            if (data.getCommand().toLowerCase().equals("check-out")) {
+                try {
+                    zoo.checkOutAnimal(animal);
+                }
+                catch (NoRequestedAnimalException exception){
+                    System.out.println(exception.getMessage());
+                }
+
+            }
+            System.out.println();
         }
     }
+
+    //  Функция проверки корректности команды
+    //  Логирование обрабатывается отдельно
     private boolean isCorrectCommand(String command) {
         boolean result = true;
 
@@ -77,24 +118,23 @@ public class ApplicationZoo {
             case "check-out":
                 //  Команда удаления из зоопарка
                 break;
-            case "log":
-                //  История
-                break;
             default:
-                System.out.println(command.toLowerCase());
                 result = false;
                 break;
         }
         return result;
     }
 
-
-    public static void main(String[] args) {
-        ApplicationZoo applicationZoo = new ApplicationZoo();
-
-            applicationZoo.start();
-
-
-
+    //  Вывод справки
+    private void helpOutput(){
+        System.out.println("Available commands");
+        System.out.println("check-in <type of animal> <name of animal>" +
+                " - add an animal to the zoo");
+        System.out.println("check-out <type of animal> <name of animal>  " +
+                "- remove an animal from the zoo");
+        System.out.println("log - display the arrival-departure log");
+        System.out.println("help - show help");
+        System.out.println("the input is case-independent");
+        System.out.println();
     }
 }

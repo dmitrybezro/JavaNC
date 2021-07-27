@@ -45,8 +45,4 @@ public class InhibitionLog {
                 ", animalName='" + animalName + '\'' +
                 '}';
     }
-
-    public static void main(String[] args) {
-       // peripherals.InhibitionLog inhibitionLog = new peripherals.InhibitionLog();
-    }
 }

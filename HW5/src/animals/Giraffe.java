@@ -3,7 +3,7 @@ package animals;
 import model.Animal;
 import model.Nutrition;
 import model.Species;
-//  Дописать исключения в конструктор
+
 public class Giraffe implements Animal {
     private final String name;
     private double height;
@@ -66,10 +66,4 @@ public class Giraffe implements Animal {
         return Species.GIRAFFE;
     }
 
-    public static void main(String[] args) {
-        Giraffe giraffe1 = new Giraffe("GGG");
-        Giraffe giraffe2 = new Giraffe("AAA", 123, 40, 12);
-
-        System.out.println(giraffe1.getName() + "  " + giraffe1.getNutrition());
-    }
 }
