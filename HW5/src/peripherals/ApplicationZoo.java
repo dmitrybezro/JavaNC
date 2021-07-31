@@ -2,6 +2,7 @@ package peripherals;
 
 import exceptions.NoFreeCageException;
 import exceptions.NoRequestedAnimalException;
+import factory.FactoryAnimal;
 import model.Animal;
 import model.Species;
 import animals.*;
@@ -57,26 +58,17 @@ public class ApplicationZoo {
                 if (!isCorrectCommand(data.getCommand()))
                     correctString = false;
 
+
+
                 //  Корректность ввода вида животного
+                //  Возврат объекта, если корректный ввод вида
                 if(correctString){
                     boolean correctSpecie = false;
-                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.GIRAFFE.name())) {
-                        animal = new Giraffe(data.getNameAnimal());
-                        correctSpecie = true;
-                    }
-                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.LEON.name())) {
-                        animal = new Leon(data.getNameAnimal());
-                        correctSpecie = true;
-                    }
-                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.PENGUIN.name())) {
-                        animal = new Penguin(data.getNameAnimal());
-                        correctSpecie = true;
-                    }
-                    if (data.getSpecieAnimal().equalsIgnoreCase(Species.SQUIRREL.name())) {
-                        animal = new Squirrel(data.getNameAnimal());
-                        correctSpecie = true;
-                    }
-                    if (!correctSpecie) {
+
+                    FactoryAnimal factoryAnimal = new FactoryAnimal();
+                    animal = factoryAnimal.create(data);
+
+                    if (animal == null) {
                         correctString = false;
                     }
                 }
