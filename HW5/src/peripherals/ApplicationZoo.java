@@ -32,7 +32,7 @@ public class ApplicationZoo {
                 data = parser.pars(stringInput);
 
                 //  Отдельная проверка на команду log
-                if(data.size == 1 && data.getCommand().toLowerCase().equals( "log")){
+                if(data.size == 1 && data.getCommand().equalsIgnoreCase( "log")){
                     List<InhibitionLog> logs = zoo.getHistory();
 
                     for (InhibitionLog log : logs) {
@@ -49,7 +49,7 @@ public class ApplicationZoo {
                 }
 
                 //  Проверка на команду help
-                if(data.size == 1 && data.getCommand().toLowerCase().equals( "help")) {
+                if(data.size == 1 && data.getCommand().equalsIgnoreCase( "help")) {
                     helpOutput();
                 }
 
@@ -84,7 +84,7 @@ public class ApplicationZoo {
             } while (!correctString);
 
             //  Если все ок, то вызываются функции зоопарка
-            if (data.getCommand().toLowerCase().equals("check-in")) {
+            if (data.getCommand().equalsIgnoreCase("check-in")) {
                 try{
                     zoo.checkInAnimal(animal);
                 }
@@ -93,7 +93,7 @@ public class ApplicationZoo {
                 }
 
             }
-            if (data.getCommand().toLowerCase().equals("check-out")) {
+            if (data.getCommand().equalsIgnoreCase("check-out")) {
                 try {
                     zoo.checkOutAnimal(animal);
                 }
