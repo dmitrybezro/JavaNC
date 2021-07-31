@@ -8,9 +8,13 @@ import peripherals.Data;
 
 public class FactoryAnimal {
     public Animal create(Data data) {
-        Animal animal = null;
+        AnimalImpl animal = null;
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.GIRAFFE.name())) {
-            animal = new Giraffe(data.getNameAnimal());
+            animal = new Giraffe(new AnimalImpl.AnimalBuilder().name("str"));
+        }
+
+/*        if (data.getSpecieAnimal().equalsIgnoreCase(Species.GIRAFFE.name())) {
+           animal = new Giraffe(data.getNameAnimal());
         }
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.LEON.name())) {
             animal = new Leon(data.getNameAnimal());
@@ -20,7 +24,7 @@ public class FactoryAnimal {
         }
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.SQUIRREL.name())) {
             animal = new Squirrel(data.getNameAnimal());
-        }
+        }*/
 
         return animal;
     }
