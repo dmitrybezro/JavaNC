@@ -1,6 +1,6 @@
 package peripherals;
 
-class Data {
+public class Data {
     private String command;
     private String specieAnimal;
     private String nameAnimal;
