@@ -4,62 +4,22 @@ import model.Animal;
 import model.Nutrition;
 import model.Species;
 
-public class Penguin implements Animal {
-    private final String name;
-    private double height;
-    private double weight;
-    private int age;
+public class Penguin extends AnimalImpl {
     private int numberCage;
     private final Nutrition NUTRITION = Nutrition.CARNIVOROUS;
 
-    public Penguin(String name, double height, double weight, int age) {
-        this.name = name;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-    }
-
-    public Penguin(String name) {
-        this.name = name;
-    }
-
-    public double getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeight() {
-        return this.weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public Penguin(AnimalBuilder animalBuilder){
+        super(animalBuilder);
     }
 
     public Nutrition getNutrition() {
         return this.NUTRITION;
     }
 
-    public int getAge() {
-        return this.age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public int getNumberCage() {return this.numberCage;}
 
     public void setNumberCage(int number) {
         this.numberCage = number;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override

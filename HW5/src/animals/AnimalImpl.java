@@ -79,6 +79,7 @@ public class  AnimalImpl implements Animal {
         return null;
     }
 
+    //  Статистический вложенный класс строитель
     public static class AnimalBuilder {
         private String name;
         private double height;
