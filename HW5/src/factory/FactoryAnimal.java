@@ -10,16 +10,16 @@ public class FactoryAnimal {
     public Animal create(Data data) {
         AnimalImpl animal = null;
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.GIRAFFE.name())) {
-            animal = new Giraffe(new AnimalImpl.AnimalBuilder().name(data.getNameAnimal()));
+            animal = new Giraffe.GiraffeBuilder().name(data.getNameAnimal()).build();
         }
-        if (data.getSpecieAnimal().equalsIgnoreCase(Species.LEON.name())) {
-            animal = new Leon(new AnimalImpl.AnimalBuilder().name(data.getNameAnimal()));
+      if (data.getSpecieAnimal().equalsIgnoreCase(Species.LEON.name())) {
+            animal = new Leon.LeonBuilder().name(data.getNameAnimal()).build();
         }
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.PENGUIN.name())) {
-            animal = new Penguin(new AnimalImpl.AnimalBuilder().name(data.getNameAnimal()));
+            animal = new Penguin.PenguinBuilder().name(data.getNameAnimal()).build();
         }
         if (data.getSpecieAnimal().equalsIgnoreCase(Species.SQUIRREL.name())) {
-            animal = new Squirrel(new AnimalImpl.AnimalBuilder().name(data.getNameAnimal()));
+            animal = new Squirrel.SquirrelBuilder().name(data.getNameAnimal()).build();
         }
         return animal;
     }
