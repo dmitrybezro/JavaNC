@@ -4,17 +4,13 @@ public class Data {
     private String command;
     private String specieAnimal;
     private String nameAnimal;
-    public int size;
+    private int size;
 
-    Data(String command, String specieAnimal, String nameAnimal) {
-        this.command = command;
-        this.specieAnimal = specieAnimal;
-        this.nameAnimal = nameAnimal;
-        size = 3;
-    }
-    Data(String command) {
-        this.command = command;
-        size = 1;
+    public Data(DataBuild dataBuild) {
+        this.command = dataBuild.command;
+        this.specieAnimal = dataBuild.specieAnimal;
+        this.nameAnimal = dataBuild.nameAnimal;
+        this.size = dataBuild.size;
     }
 
     public String getSpecieAnimal() {
@@ -27,5 +23,40 @@ public class Data {
 
     public String getNameAnimal() {
         return nameAnimal;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+    public static class DataBuild{
+        private String command;
+        private String specieAnimal;
+        private String nameAnimal;
+        private int size;
+
+        public DataBuild command(String stringCommand){
+            this.command = stringCommand;
+            return this;
+        }
+
+        public DataBuild specie(String stringSpecie){
+            this.specieAnimal = stringSpecie;
+            return this;
+        }
+
+        public DataBuild name(String stringName){
+            this.nameAnimal = stringName;
+            return this;
+        }
+
+        public DataBuild size(int size){
+            this.size = size;
+            return this;
+        }
+
+        public Data build(){
+            return new Data(this);
+        }
     }
 }
