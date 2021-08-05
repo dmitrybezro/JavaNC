@@ -5,7 +5,6 @@ import exceptions.NoFreeCageException;
 import exceptions.NoRequestedAnimalException;
 import model.Animal;
 import model.Species;
-import model.Zoo;
 
 
 import java.util.ArrayList;
