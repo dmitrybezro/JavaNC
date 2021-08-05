@@ -5,6 +5,7 @@ import exceptions.NoFreeCageException;
 import exceptions.NoRequestedAnimalException;
 import model.Animal;
 import model.Species;
+import model.Zoo;
 
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class ZooImpl implements Zoo {
     private final int numberAnimal = 4;
     private final ArrayList<CageImpl> cages = new ArrayList<>(numberAnimal);
     private ArrayList<Animal> animals = new ArrayList<Animal>(numberAnimal);
-    private ArrayList<InhibitionLog> journal = new ArrayList<>();
+    private Logging logger = new Logging();
+
 
 
     public ZooImpl() {
@@ -46,8 +48,7 @@ public class ZooImpl implements Zoo {
 
                 //  Занести запись в дату заезда
                 cage.setInDate(new Date());
-              //  journal.add(new peripherals.InhibitionLog(new Date(), null, animal.getSpecies(), animal.getName() ));
-                System.out.println("Accept");
+                logger.accept();
                 break;
             } else {
                 if(cage.equals(cages.get(numberAnimal - 1))) {
@@ -69,9 +70,9 @@ public class ZooImpl implements Zoo {
             if(animalInZoo != null && animalInZoo.getName().equals(animal.getName())){
                 cages.get(i).setVacant(true);  //  Установили вакантность
                 animals.set(i, null);
-                journal.add(new InhibitionLog(cages.get(i).getInDate(),
+                logger.add(new InhibitionLog(cages.get(i).getInDate(),
                         new Date(), animal.getSpecies(), animal.getName()));
-                System.out.println("Evicted");
+                logger.evicted();
                 break;
             } else {
                 if(i == (numberAnimal - 1)){
@@ -85,7 +86,7 @@ public class ZooImpl implements Zoo {
 
     @Override
     public List<InhibitionLog> getHistory() {
-        return journal;
+        return logger.getJournal();
     }
 
 }
