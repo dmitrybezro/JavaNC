@@ -6,7 +6,6 @@ import factory.FactoryAnimal;
 import model.Animal;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ApplicationZoo {
@@ -89,5 +88,9 @@ public class ApplicationZoo {
         if(logs.size() == 0) {
             System.out.println("The log is empty");
         }
+    }
+
+    private void UploadData(){
+        //  Подгрузить данные из базы в классы
     }
 }
