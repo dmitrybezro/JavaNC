@@ -9,21 +9,13 @@ import java.sql.*;
 public class DataBaseZoo {
     private Connection connection;
 
-    {
-        try{
-            initializationCage();
-        } catch(SQLException sqlException){
-
-        }
-
-    }
-
     public DataBaseZoo(){
         final String url = "jdbc:postgresql://localhost:5432/Zoo";
         final String username = "postgres";
         final String password = "root";
         try{
             connection = DriverManager.getConnection(url ,username, password);
+            initializationCage();
         } catch (SQLException exception){
             System.out.println("Failed to get a connection to the database "
                     + exception.getMessage());
@@ -34,8 +26,10 @@ public class DataBaseZoo {
         Statement statement = connection.createStatement();
         String sqlInsertAnimal = "INSERT INTO animals VALUES ('" + animal.getName() +
                 "', '" + animal.getSpecies() + "', " + animal.getNumberCage() + ");";
-        String sqlUpdateCage = "UPDATE cage SET vacant = false WHERE idCage = "
-                + animal.getNumberCage() + ");";
+        String sqlUpdateCage = "UPDATE cage " +
+                               "SET vacant = false " +
+                               "WHERE cage_id = "
+                               + animal.getNumberCage() + ";";
         statement.executeUpdate(sqlInsertAnimal);
         statement.executeUpdate(sqlUpdateCage);
 
@@ -59,6 +53,7 @@ public class DataBaseZoo {
 
     public static void main(String[] args) {
         Leon leon = new Leon.LeonBuilder().name("LEO").build();
+        leon.setNumberCage(4);
         DataBaseZoo dataBaseZoo = new DataBaseZoo();
         try{
             dataBaseZoo.add(leon);
