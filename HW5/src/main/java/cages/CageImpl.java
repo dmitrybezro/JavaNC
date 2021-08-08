@@ -11,6 +11,8 @@ public class CageImpl implements Cage {
     private boolean vacant;
     private final ConditionImpl condition;
     private Date inDate;
+    private int numberCage;
+    private static int countCage = 1;
 
 
     public Date getInDate(){ return inDate;}
@@ -21,6 +23,7 @@ public class CageImpl implements Cage {
         this.height = height;
         condition = new ConditionImpl(width, height);
         vacant = true;
+        numberCage = countCage++;
     }
 
     public void setVacant(boolean bool) {
@@ -29,7 +32,7 @@ public class CageImpl implements Cage {
 
     @Override
     public int getNumber() {
-        return this.hashCode();
+        return this.numberCage;
     }
 
     @Override
@@ -46,5 +49,4 @@ public class CageImpl implements Cage {
     public boolean isVacantCage() {
         return this.vacant;
     }
-
 }

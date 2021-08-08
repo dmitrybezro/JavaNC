@@ -1,5 +1,6 @@
 package peripherals;
 
+import animals.AnimalImpl;
 import cages.CageImpl;
 import exceptions.NoFreeCageException;
 import exceptions.NoRequestedAnimalException;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ZooImpl implements Zoo {
     private final int numberAnimal = 4;
     private final ArrayList<CageImpl> cages = new ArrayList<>(numberAnimal);
-    private ArrayList<Animal> animals = new ArrayList<Animal>(numberAnimal);
+    private ArrayList<AnimalImpl> animals = new ArrayList<AnimalImpl>(numberAnimal);
     private Logging logger = new Logging();
 
     public ZooImpl() {
@@ -38,9 +39,10 @@ public class ZooImpl implements Zoo {
 
             if (indexCage >= 0 && vacant) {
                 cage.setVacant(false);
-                animals.set(indexCage, animal);
+                animals.set(indexCage, (AnimalImpl)animal);
                 cage.setInDate(new Date());
                 logger.accept();
+                animals.get(indexCage).setNumberCage(cage.getNumber());
                 break;
             } else {
                 if(cage.equals(cages.get(numberAnimal - 1))) {
